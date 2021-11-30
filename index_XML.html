@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+        <h1>
+        AJAX Example, XML Document
+            </h1>
+        <p id="results"></p>
+        <button type="button" onclick="DownloadXML()">Download XML</button>
+    <script>
+        function DownloadXML() {
+            //New Part,
+            var xhttpRequest = new XMLHttpRequest();
+            //Response Type? json?text?text/xml?
+            xhttpRequest.responseType = 'text/xml';
+            //State Change Handler, Everytime there is a change, It will be triggered
+            xhttpRequest.onreadystatechange = function () {
+                if (xhttpRequest.readyState == 4 && xhttpRequest.status == 200) {
+                    ProcessXMLDocument(xhttpRequest.responseXML);
+                }
+            };
+            xhttpRequest.open("GET", "sample.xml",true);
+            xhttpRequest.send();
+        }
+        function ProcessXMLDocument(xml) {
+            //Traversing
+            document.getElementById("results").innerHTML = xml.getElementsByTagName("entry")[0].getElementsByTagName("title")[0].textContent;
+        }
+    </script>
+</body>
+</html>

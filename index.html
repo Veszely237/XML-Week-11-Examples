@@ -1,0 +1,39 @@
+<html>
+
+<body>
+  <h2>AJAX Example, JSON Object</h2>
+  <br>
+  <div id="weatherResults">
+    <div id="city">
+
+    </div>
+    <div id="temp">
+
+    </div>
+  </div>
+  <br>
+  <button type="button" onclick="GetWeatherInfo()">
+    Get Weather Info
+  </button>
+  <script>
+    function GetWeatherInfo() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.timeout = 3000;
+      xhttp.responseType = "json";
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          ProcessJSON(this.response);
+        }
+      };
+      xhttp.open("GET", "weather.json", true);
+      xhttp.send();
+    }
+    function ProcessJSON(json) {
+      document.getElementById("city").innerHTML = json.city;
+      document.getElementById("temp").innerHTML = json.temp;
+    }
+  </script>
+
+</body>
+
+</html>
